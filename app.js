@@ -48,44 +48,40 @@ function stopRecording() {
 
 // Функция отправки аудио на вебхук Make.com
 function sendAudio(audioBlob) {
-    const reader = new FileReader();
-    reader.readAsDataURL(audioBlob);
-    reader.onloadend = () => {
-        const base64Audio = reader.result.split(',')[1];
-        // Отправляем запрос на вебхук Make.com
-        fetch('https://hook.us2.make.com/cuh6lv356p24ronyxfj8y6xko82naw9p', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ audio: base64Audio })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            stopLoading();
-            if (data.audioResponse && data.textResponse) {
-                const audioSrc = `data:audio/wav;base64,${data.audioResponse}`;
-                responseAudio.src = audioSrc;
-                responseAudio.play();
-                responseAudio.onended = () => {
-                    addMessage('bot', data.textResponse); // Добавляем текстовое сообщение бота после воспроизведения аудио
-                };
-                statusDiv.innerText = "Ответ получен";
-            } else {
-                addMessage('bot', 'Извините, произошла ошибка.');
-                statusDiv.innerText = "Ошибка в ответе";
-            }
-        })
-        .catch(error => {
-            console.error("Ошибка отправки аудио:", error);
-            statusDiv.innerText = "Ошибка отправки аудио.";
-        });
-    };
+    startLoading();
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'recording.wav');
+
+    // Отправляем запрос на вебхук Make.com
+    fetch('https://hook.us2.make.com/cuh6lv356p24ronyxfj8y6xko82naw9p', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        stopLoading();
+        if (data.audioResponse && data.textResponse) {
+            const audioSrc = `data:audio/wav;base64,${data.audioResponse}`;
+            responseAudio.src = audioSrc;
+            responseAudio.play();
+            responseAudio.onended = () => {
+                addMessage('bot', data.textResponse); // Добавляем текстовое сообщение бота после воспроизведения аудио
+            };
+            statusDiv.innerText = "Ответ получен";
+        } else {
+            addMessage('bot', 'Извините, произошла ошибка.');
+            statusDiv.innerText = "Ошибка в ответе";
+        }
+    })
+    .catch(error => {
+        console.error("Ошибка отправки аудио:", error);
+        statusDiv.innerText = "Ошибка отправки аудио.";
+    });
 }
 
 // Функция добавления сообщения в чат
