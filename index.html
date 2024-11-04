@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Симулятор Игрушки</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Симулятор Игрушки</h1>
+        <div class="chat-container" id="chatContainer">
+            <!-- Сообщения будут добавляться здесь -->
+        </div>
+        <div class="controls">
+            <button id="recordButton">
+                <span id="recordIcon">🎤</span>
+                <span id="recordText">Нажмите и говорите</span>
+            </button>
+            <div id="status"></div>
+        </div>
+        <audio id="responseAudio" controls style="display: none;"></audio>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
