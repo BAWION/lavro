@@ -54,14 +54,12 @@ function sendAudio(audioBlob) {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.audioResponse) {
-                addMessage('bot', '...'); // Добавляем сообщение бота
+            if (data.audioResponse && data.textResponse) {
                 const audioSrc = `data:audio/wav;base64,${data.audioResponse}`;
                 responseAudio.src = audioSrc;
                 responseAudio.play();
                 responseAudio.onended = () => {
-                    // После воспроизведения добавляем реальное сообщение бота
-                    fetchBotResponseText(data.textResponse); // Предполагается, что Make.com возвращает также текстовый ответ
+                    fetchBotResponseText(data.textResponse); // Добавляем текстовое сообщение бота
                 };
                 statusDiv.innerText = "Ответ получен";
             } else {
