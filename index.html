@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>Симулятор Игрушки</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Временные стили для улучшения UX */
+        #loading {
+            display: none;
+            text-align: center;
+            font-size: 1.2em;
+            color: #444;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,6 +26,7 @@
                 <span id="recordText">Нажмите и говорите</span>
             </button>
             <div id="status"></div>
+            <div id="loading">Загрузка...</div>
         </div>
         <audio id="responseAudio" controls style="display: none;"></audio>
     </div>
