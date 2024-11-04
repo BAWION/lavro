@@ -1,0 +1,115 @@
+/* styles.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.chat-container {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fafafa;
+    margin-bottom: 20px;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.message.user .bubble {
+    background-color: #0084ff;
+    color: #ffffff;
+    align-self: flex-end;
+    border-radius: 15px 15px 0 15px;
+}
+
+.message.bot .bubble {
+    background-color: #e5e5ea;
+    color: #000000;
+    align-self: flex-start;
+    border-radius: 15px 15px 15px 0;
+}
+
+.bubble {
+    max-width: 80%;
+    padding: 10px 15px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.controls {
+    text-align: center;
+}
+
+#recordButton {
+    background-color: #ff4b2b;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+#recordButton:hover {
+    background-color: #ff3a1a;
+}
+
+#recordIcon {
+    margin-right: 10px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#status {
+    margin-top: 10px;
+    color: #555555;
+}
+
+@media (max-width: 500px) {
+    .container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+}
